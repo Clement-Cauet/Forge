@@ -5,6 +5,7 @@ class Map{
     protected $_nom;
     private $_imageLien;
     protected $_isForge=false;
+    protected $_isMarche=false;
 
     //coordonne de la map
     private $_x;
@@ -34,6 +35,11 @@ class Map{
     public function isForge(){
         return $this->_isForge;
     }
+
+    public function isMarche(){
+        return $this->_isMarche;
+    }
+
     //calcule pitagorien pour avoir une distance au point d'origine
     //la distance determine le niveau
     public function getlvl(){
@@ -830,11 +836,11 @@ class Map{
         }
 
         $choixAleatoire = array_rand($typemap, 1);
-        $choixAleatoire = 21;
+        $choixAleatoire = 22;
         echo $choixAleatoire;
 
-        if($choixAleatoire == 21){
-            $this->_isForge = true;
+        if($choixAleatoire == 22){
+            $this->_isMarche = true;
         }
         
         $type =  $typemap[$choixAleatoire];

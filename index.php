@@ -3,9 +3,11 @@
     include("bdd.php");
     include("map.php");
     include("forge.php");
+    include("marche.php");
     include("entite.php");
     include("object.php");
     include("equipement.php");
+    include("item.php");
 
     $idEntite = 1938;
     $idMap = 4330;
@@ -25,14 +27,14 @@
         //$forge->acheter($entite, $idMap, $idEntite);
 
     }else if($map->isMarche()){
-        $marche = new forge($bdd);
-        $marche->setForgeById($idMap);
-        $marche->changeMap($forge);
-        echo $forge->getNomForge().'<br>';
+        $marche = new marche($bdd);
+        $marche->setMarcheById($idMap);
+        $entite->changeMap($marche);
+        echo $marche->getNomMarche().'<br>';
         $nbrItem = count($map->getItems());        
         $marche->livraison(10 - $nbrItem);
-        $marche->vendre($entite, $idEntite);
-        //$marche->acheter($entite, $idMap, $idEntite);
+        //$marche->vendre($entite, $idEntite);
+        $marche->acheter($entite, $idMap, $idEntite);
 
     }else{
         echo 'Je suis une map '.$map->getNom();

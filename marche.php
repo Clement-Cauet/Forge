@@ -12,8 +12,8 @@
 
         public function livraison($nbrItem){
             for($i=0; $i<$nbrItem; $i++){
-                $item = new Item($this->_bdd);
-                $this->addItem($equipement->createItemAleatoire()); 
+                $item = new item($this->_bdd);
+                $this->addItem($item->createItemAleatoire()); 
             }
         }
 
@@ -58,9 +58,8 @@
         }
 
         public function vendre($entite, $idEntite){
-            $req = "SELECT entiteequipement.idEquipement, equipement.nom, equipement.valeur FROM `entiteequipement`, `equipement` WHERE equipement.id = entiteequipement.idEquipement AND `equipe` != 1 AND `idEntite` = $idEntite";
+            $req = "SELECT persosacitems.idItem, item.nom, item.valeur FROM `persosacitems`, `item`, `user`, `entite` WHERE item.id = persosacitems.idItem AND user.idPersonnage = entite.id AND entite.id = $idEntite";
             $RequetStatement = $this->_bdd->query($req);
-            $equipements = $entite->getEquipementNonPorte();
             ?><form method="post"><table><?php
             while($Tab=$RequetStatement->fetch()){
                 ?>
@@ -81,10 +80,10 @@
             }
             if(isset($_POST['checkbox'])){
                 foreach($_POST['checkbox'] as $checkId){
-                    $equipement = new equipement($this->_bdd);
-                    $equipement->setEquipementById($checkId);
-                    $valeur = $equipement->getValeur($checkId);
-                    $equipements = $entite->removeEquipementByID($checkId);
+                    $item = new item($this->_bdd);
+                    $item->setItemById($checkId);
+                    $valeur = $item->getValeur($checkId);
+                    $items = $entite->removeEquipeBydId($checkId);
                     $money += $valeur;
                 }
             }

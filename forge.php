@@ -93,7 +93,7 @@
 
             
         }
-        
+
         public function getNomForge(){
             return 'Je suis la forge '.$this->_nom;
         }
